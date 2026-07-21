@@ -1,12 +1,18 @@
 # Task Manager
 
-A practical task manager for Windows and Android that works both offline and online.
+A privacy-first, local-first task manager for Windows and Android.
 
-It is designed for people who want more control over where their task data is stored. You can use the app entirely offline, without an account or cloud connection, or enable synchronization when you need the same tasks on multiple devices or want to share folders and tasks with another person.
+Task Manager works fully offline without an account, while optional Supabase synchronization enables multi-device access and shared folders, tasks, and checklists. The local SQLite database remains the primary source of truth, so the app stays usable without an internet connection or cloud service.
 
-Unlike many task apps, cloud access is optional rather than required. The local database remains the primary source of truth, so the app stays usable without internet access and does not depend on a remote service for basic task management.
+> **Status:** Built from scratch during OpenAI Build Week using Codex with GPT-5.6. Core task management, reminders, backup, synchronization, and shared tasks are implemented. Some interfaces and data structures may still change.
 
-> **Status:** Active development. Core task management, reminders, backup, synchronization, and shared tasks are implemented. Some interfaces and data structures may still change.
+## OpenAI Build Week
+
+This project was built from scratch for **OpenAI Build Week** in the **Apps for Your Life** track.
+
+The first functional version was created in approximately one day of intensive development with Codex powered by GPT-5.6, using roughly a weekly token allowance. Codex handled architecture, implementation, testing, debugging, and documentation.
+
+The developer acted as product owner and reviewer: defining and adjusting requirements, approving functionality, testing the application, reporting bugs, and providing feedback for fixes.
 
 ## Why Use It
 
@@ -29,9 +35,11 @@ Unlike many task apps, cloud access is optional rather than required. The local 
 
 ## Screenshots
 
-<img width="990" height="566" alt="image" src="https://github.com/user-attachments/assets/123fe98c-7e38-4c06-9e41-87256625a5c0" />
-<img width="740" height="530" alt="image" src="https://github.com/user-attachments/assets/b2aa355a-6410-4745-90f8-73f226c1fdae" />
-<img width="292" height="448" alt="image" src="https://github.com/user-attachments/assets/f3a0cbac-1b87-4076-b099-e5892f184c95" />
+<img width="990" height="566" alt="Task Manager desktop interface" src="https://github.com/user-attachments/assets/123fe98c-7e38-4c06-9e41-87256625a5c0" />
+
+<img width="740" height="530" alt="Task Manager compact desktop view" src="https://github.com/user-attachments/assets/b2aa355a-6410-4745-90f8-73f226c1fdae" />
+
+<img width="292" height="448" alt="Task Manager Android interface" src="https://github.com/user-attachments/assets/f3a0cbac-1b87-4076-b099-e5892f184c95" />
 
 ## Offline or Online
 
@@ -54,6 +62,51 @@ Use online mode when you need synchronization or collaboration.
 - Continue working locally when temporarily offline and synchronize later
 
 Online mode uses a self-configured Supabase backend. Cloud synchronization is optional and can be omitted completely.
+
+## Architecture
+
+The application follows a local-first architecture:
+
+1. User actions are written to the local Drift/SQLite database.
+2. The Flutter interface observes local data through Riverpod providers.
+3. Pending changes are stored locally when synchronization is enabled.
+4. The synchronization layer sends local changes to Supabase and retrieves remote updates.
+5. Supabase Realtime notifications trigger incremental synchronization.
+6. Failed operations remain queued locally and are retried when connectivity returns.
+
+```mermaid
+flowchart LR
+    UI[Flutter UI] --> RP[Riverpod]
+    RP --> DB[(Drift / SQLite)]
+    DB --> Q[Pending Sync Queue]
+    Q --> SE[Sync Engine]
+    SE <--> SB[Supabase]
+```
+
+The user interface reads from the local database, including while the device is offline.
+
+## How Codex and GPT-5.6 Were Used
+
+Development followed an iterative agent-driven workflow:
+
+1. The developer described the required behavior and constraints.
+2. Codex designed and implemented the functionality.
+3. The developer reviewed and tested the result.
+4. Bugs, missing behavior, and usability issues were reported as feedback.
+5. Codex investigated the feedback, applied fixes, and ran development checks.
+6. The cycle continued until the functionality was approved.
+
+Codex with GPT-5.6 was used across the complete project, including:
+
+- application architecture and Flutter project structure;
+- user interface implementation;
+- Drift and SQLite persistence;
+- reminders, recurrence, filtering, checklists, and backups;
+- Supabase authentication, synchronization, sharing, and security policies;
+- Windows and Android platform integration;
+- tests, static analysis, debugging, and documentation.
+
+The human developer remained responsible for product direction, functional approval, testing, bug reports, and final scope and usability decisions.
 
 ## Supported Platforms
 
@@ -85,7 +138,7 @@ flutter pub get
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-### Run Offline
+### Run on Windows in offline mode
 
 ```powershell
 flutter run -d windows
@@ -93,7 +146,25 @@ flutter run -d windows
 
 Choose offline mode on the authentication screen. Supabase configuration is not required.
 
-### Enable Online Sync
+### Run on Android in offline mode
+
+List connected devices:
+
+```powershell
+flutter devices
+```
+
+Run the application:
+
+```powershell
+flutter run -d <android-device-id>
+```
+
+Choose offline mode on the authentication screen.
+
+### Enable online synchronization
+
+Copy the environment template:
 
 ```powershell
 Copy-Item supabase.env.example supabase.env
@@ -110,32 +181,6 @@ Start the Windows application with:
 .\run.bat
 ```
 
-See [Supabase setup](docs/SUPABASE_SETUP.md) for the complete procedure.
-
-> Never add a Supabase `service_role` key, database password, signing key, or other private credential to the repository or a client build.
-
-## Development Checks
-
-```powershell
-flutter analyze
-flutter test
-```
-
-Build release packages with:
-
-```powershell
-.\export.bat
-```
-
-Or build one platform:
-
-```powershell
-.\export.bat -Platform windows
-.\export.bat -Platform android
-```
-
-See [installation and export](docs/INSTALL_AND_EXPORT.md) for packaging, signing, and installation details.
-
 ## Technology
 
 - Flutter and Dart
@@ -144,6 +189,7 @@ See [installation and export](docs/INSTALL_AND_EXPORT.md) for packaging, signing
 - Supabase Auth, Postgres, Realtime, and Row Level Security
 - Flutter local notifications
 - Secure OS credential storage
+- OpenAI Codex with GPT-5.6 for architecture, implementation, testing, debugging, and documentation
 
 ## Data and Security
 
@@ -152,22 +198,28 @@ See [installation and export](docs/INSTALL_AND_EXPORT.md) for packaging, signing
 - Local databases, backups, environment files, signing keys, and release builds are excluded from Git.
 - Cloud data access is protected with Supabase Row Level Security.
 - Pending changes are stored locally and retried when synchronization becomes available.
+- Test accounts and sample data must contain synthetic information only.
 
 Before running a public Supabase instance, review all policies and migrations in `supabase/`.
+
+## Third-Party Services and Components
+
+- Supabase — optional authentication, database, realtime synchronization, and sharing
+- Flutter packages — listed in `pubspec.yaml`
+- OpenAI Codex with GPT-5.6 — software development workflow
+- Screenshots and project assets — created for this project
+
+All third-party components are used according to their respective licenses.
 
 ## Known Limitations
 
 - No web client yet
 - Attachments are not uploaded to Supabase Storage
 - Search currently uses local substring matching instead of SQLite FTS
-- Android and Windows application identifiers will be replaced in the future update
+- Android and Windows application identifiers will be replaced in a future update
 
 ## License
 
-Copyright (С) 2026 
+This project is licensed under the [MIT License](LICENSE).
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Copyright © 2026 Einhorn inc.
