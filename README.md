@@ -39,7 +39,10 @@ The developer acted as product owner and reviewer: defining and adjusting requir
 
 <img style="width: 75%; height: auto;" alt="image" src="https://github.com/user-attachments/assets/8552a500-29f0-4603-80df-7ebc51a164d9" />
 
-<img style="width: 25%; height: auto;" alt="image" src="https://github.com/user-attachments/assets/7ca0b94d-3f4d-43ea-a93e-75e92f3e3879" />
+<img style="width: 35%; height: auto;" alt="image" src="https://github.com/user-attachments/assets/7ca0b94d-3f4d-43ea-a93e-75e92f3e3879" />
+
+<img style="width: 25%; height: auto;" alt="image" src="https://github.com/user-attachments/assets/aec4e42e-721a-44d5-b468-f0cfc8c56991" />
+
 
 ## Offline or Online
 
