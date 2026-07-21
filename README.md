@@ -29,7 +29,7 @@ Unlike many task apps, cloud access is optional rather than required. The local 
 
 ## Screenshots
 
-<img width="990" height="566" alt="image" src="https://github.com/user-attachments/assets/c30f1663-5106-4a27-9ce9-17b08fbbb765" />
+<img width="990" height="566" alt="image" src="https://github.com/user-attachments/assets/123fe98c-7e38-4c06-9e41-87256625a5c0" />
 <img width="740" height="530" alt="image" src="https://github.com/user-attachments/assets/b2aa355a-6410-4745-90f8-73f226c1fdae" />
 <img width="292" height="448" alt="image" src="https://github.com/user-attachments/assets/f3a0cbac-1b87-4076-b099-e5892f184c95" />
 
