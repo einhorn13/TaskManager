@@ -35,11 +35,11 @@ The developer acted as product owner and reviewer: defining and adjusting requir
 
 ## Screenshots
 
-<img width="990" height="566" alt="Task Manager desktop interface" src="https://github.com/user-attachments/assets/123fe98c-7e38-4c06-9e41-87256625a5c0" />
+<img style="width: 75%; height: auto;" alt="image" src="https://github.com/user-attachments/assets/c571d47f-65e5-4ef0-a958-13b5ced32674" />
 
-<img width="740" height="530" alt="Task Manager compact desktop view" src="https://github.com/user-attachments/assets/b2aa355a-6410-4745-90f8-73f226c1fdae" />
+<img style="width: 75%; height: auto;" alt="image" src="https://github.com/user-attachments/assets/8552a500-29f0-4603-80df-7ebc51a164d9" />
 
-<img width="292" height="448" alt="Task Manager Android interface" src="https://github.com/user-attachments/assets/f3a0cbac-1b87-4076-b099-e5892f184c95" />
+<img style="width: 25%; height: auto;" alt="image" src="https://github.com/user-attachments/assets/7ca0b94d-3f4d-43ea-a93e-75e92f3e3879" />
 
 ## Offline or Online
 
