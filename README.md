@@ -27,6 +27,12 @@ Unlike many task apps, cloud access is optional rather than required. The local 
 - Shared folders, tasks, and checklists
 - Windows tray integration and compact task view
 
+## Screenshots
+
+<img width="990" height="566" alt="image" src="https://github.com/user-attachments/assets/afa3db7a-e2e3-4a07-bc11-658f7ae6b5d3" />
+<img width="740" height="530" alt="image" src="https://github.com/user-attachments/assets/a5c47de3-2dcb-4184-b69b-f951ba299ecf" />
+<img width="292" height="448" alt="image" src="https://github.com/user-attachments/assets/f3a0cbac-1b87-4076-b099-e5892f184c95" />
+
 ## Offline or Online
 
 ### Offline mode
