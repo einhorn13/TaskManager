@@ -1,0 +1,55 @@
+name: task_manager
+description: A minimalist offline-first task manager for Windows, Android, and Web.
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.5.1
+
+  # Local database (the client-side source of truth for offline-first operation)
+  drift: ^2.16.0
+  sqlite3_flutter_libs: ^0.5.20
+  sqlite3: ^3.3.0
+  path_provider: ^2.1.2
+  path: ^1.9.0
+
+  # Optional backend synchronization
+  supabase_flutter: ^2.5.6
+
+  # Utilities
+  uuid: ^4.4.0
+  intl: ^0.20.2
+  file_picker: 10.3.10
+  url_launcher: ^6.3.1
+
+  cupertino_icons: ^1.0.6
+  flutter_local_notifications: ^22.0.1
+  timezone: ^0.11.1
+  flutter_timezone: ^5.1.0
+  shared_preferences: ^2.5.5
+  flutter_secure_storage: ^10.3.1
+  window_manager: 0.5.2
+  tray_manager: 0.5.3
+  flutter_acrylic: 1.1.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  drift_dev: ^2.16.0
+  build_runner: ^2.4.9
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - windows/runner/resources/app_icon.ico
